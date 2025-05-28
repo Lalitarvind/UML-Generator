@@ -76,9 +76,14 @@ isort app tests
 flake8 app tests
 mypy app tests
 
-### Frontend
+### Backend
 
-Run lint and format commands via npm:
+Make sure your virtual environment is activated, then run:
 
-npm run lint
-npm run format
+```powershell
+black app tests
+isort app tests
+flake8 app tests
+mypy app tests
+
+
