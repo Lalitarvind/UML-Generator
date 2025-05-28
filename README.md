@@ -81,8 +81,9 @@ mypy app tests
 
 Run lint and format commands via npm:
 
+```
 npm run lint
 npm run format
-
+```
 
 
