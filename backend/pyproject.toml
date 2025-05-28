@@ -1,0 +1,26 @@
+[project]
+name = "backend"
+version = "0.1.0"
+dependencies = [
+  "fastapi",
+  "uvicorn[standard]",
+  "sqlalchemy",
+  "pydantic",
+  "python-dotenv",
+  "redis"
+]
+
+[project.optional-dependencies]
+dev = ["black", "flake8", "mypy", "isort"]
+
+[tool.black]
+line-length = 88
+target-version = ["py310"]
+
+[tool.isort]
+profile = "black"
+
+[tool.mypy]
+plugins = "pydantic.mypy"
+ignore_missing_imports = true
+strict = true

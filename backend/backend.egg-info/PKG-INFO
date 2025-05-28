@@ -1,0 +1,14 @@
+Metadata-Version: 2.4
+Name: backend
+Version: 0.1.0
+Requires-Dist: fastapi
+Requires-Dist: uvicorn[standard]
+Requires-Dist: sqlalchemy
+Requires-Dist: pydantic
+Requires-Dist: python-dotenv
+Requires-Dist: redis
+Provides-Extra: dev
+Requires-Dist: black; extra == "dev"
+Requires-Dist: flake8; extra == "dev"
+Requires-Dist: mypy; extra == "dev"
+Requires-Dist: isort; extra == "dev"
