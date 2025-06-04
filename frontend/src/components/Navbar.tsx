@@ -1,7 +1,7 @@
-"use client"
+'use client';
 
-import { Link } from "react-router-dom"
-import { Button } from "@/components/ui/button"
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 // import { Sun, Moon } from "lucide-react"
 // import { useTheme } from "@/components/theme-provider"
 
@@ -28,8 +28,12 @@ export function Navbar() {
 
         {/* Navigation links */}
         <div className="flex gap-6 text-sm font-medium">
-          <Link to="/" className="hover:text-primary transition-colors">Home</Link>
-          <Link to="/generate" className="hover:text-primary transition-colors">Generate</Link>
+          <Link to="/" className="hover:text-primary transition-colors">
+            Home
+          </Link>
+          <Link to="/generate" className="hover:text-primary transition-colors">
+            Generate
+          </Link>
         </div>
 
         {/* Right side */}
@@ -41,5 +45,5 @@ export function Navbar() {
         </div>
       </div>
     </nav>
-  )
+  );
 }

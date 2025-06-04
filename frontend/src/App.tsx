@@ -1,6 +1,6 @@
 // src/App.tsx
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-import Home from "@/pages/Home"
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from '@/pages/Home';
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
         {/* other routes */}
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;
