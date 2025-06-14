@@ -106,6 +106,10 @@ export default function SignUp(){
             setIsValid(false)
         }
     }
+
+    function onSubmit(){
+        console.log(email,password,confirmPassword)
+    }
       
     return (
         <div className="bg-[url('@assets/uml_gen_bg_img.jpg')] bg-cover bg-center flex items-center justify-center min-h-screen w-full">
@@ -126,7 +130,6 @@ export default function SignUp(){
                         type="email"
                         placeholder="m@example.com"
                         onChange={handleEmailChange}
-                        value={email}
                         required
                     />
                     {emailError && <span className="error">{emailError}</span>}
@@ -136,7 +139,6 @@ export default function SignUp(){
                     <Input 
                         id="passwordInput" 
                         type="password" 
-                        value={password}
                         onChange={handlePasswordChange}
                         required />
                         {passwordError && <span className="error">{passwordError}</span>}
@@ -147,7 +149,6 @@ export default function SignUp(){
                     <Input 
                         id="confirmPasswordInput" 
                         type="password" 
-                        value={confirmPassword}
                         onChange={handleConfirmPasswordChange}
                         required />
                         {confirmPasswordError && <span className="error">{confirmPasswordError}</span>}
@@ -157,7 +158,7 @@ export default function SignUp(){
                 </form>
             </CardContent>
             <CardFooter className="flex-col gap-2">
-                <Button type="submit" className="w-full" disabled={!isValid}>
+                <Button type="submit" className="w-full" disabled={!isValid} onClick={onSubmit}>
                 Login
                 </Button>
             </CardFooter>
