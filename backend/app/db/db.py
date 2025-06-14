@@ -10,6 +10,9 @@ db_username = os.getenv('MONGODB_USERNAME')
 db_password = os.getenv('MONGODB_PASSWORD')
 db_collection_str = os.getenv('MONGODB_COLLECTION_STRING')
 
+if not db_username or not db_password or not db_collection_str:
+    raise ValueError("Missing required environment variables for MongoDB connection.")
+
 uri = f"mongodb+srv://{db_username}:{db_password}@{db_collection_str}/?retryWrites=true&w=majority&appName=AutoUML"
 
 # Create a new client and connect to the server
