@@ -24,3 +24,14 @@ try:
     print("Pinged your deployment. You successfully connected to MongoDB!")
 except Exception as e:
     print(e)
+
+# Get the database and collection
+db = client['AutoUML']
+users = db['users']
+def get_db():
+    """
+    Get the database connection.
+    
+    :return: The MongoDB database object.
+    """
+    return db

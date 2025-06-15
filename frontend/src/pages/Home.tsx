@@ -1,6 +1,6 @@
 import { Navbar } from '@/components/Navbar';
 import { HeroSection } from '@/components/Hero';
-import '../index.css'
+import '../index.css';
 export default function Home() {
   return (
     <>

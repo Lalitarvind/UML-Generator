@@ -8,7 +8,7 @@ def hash_pass(password: str) -> str:
     :return: The hashed password as a string.
     """
     # Generate a salt and hash the password
-    return bcrypt.hashpw(plaintext.encode('utf-8'), bcrypt.gensalt()).decode()
+    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode()
 
 def check_pass(plaintext: str, hashed: str) -> bool:
     """

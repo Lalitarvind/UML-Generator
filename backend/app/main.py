@@ -1,15 +1,24 @@
-from fastapi import FastAPI, HTTPException, status, Header, Depend
-from .db.db import db
+from fastapi import FastAPI, HTTPException, status, Header
 from .auth.password_hash import hash_pass, check_pass
+from .db.db import db
 from .auth.auth import create_token, verify_token
 # from .models.user import USerCreate, UserLogin, UserResponse
 from .schemas.user import UserCreate, UserLogin
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-# @app.post('/')
-# def add_root():
-#     return {"message": "Root added!"}
+origins = [
+    "http://localhost:5173",  # React app running on localhost:5173
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,  # Allow requests from the React app
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all HTTP methods
+    allow_headers=["*"],  # Allow all headers
+)
 
 @app.post("/signup")
 def signup(user: UserCreate):
