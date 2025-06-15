@@ -1,6 +1,6 @@
 'use client';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 // import { Sun, Moon } from "lucide-react"
 // import { useTheme } from "@/components/theme-provider"
@@ -18,6 +18,8 @@ import { Button } from '@/components/ui/button';
 // }
 
 export function Navbar() {
+  const navigate = useNavigate();
+
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-background/80 backdrop-blur border-b">
       <div className="container flex items-center justify-between h-16 px-4">
@@ -39,7 +41,7 @@ export function Navbar() {
         {/* Right side */}
         <div className="flex items-center gap-2">
           {/* <ModeToggle /> */}
-          <Button variant="outline" size="sm" className="ml-2">
+          <Button variant="outline" size="sm" className="ml-2" onClick={()=> navigate('/login')}>
             Login
           </Button>
         </div>

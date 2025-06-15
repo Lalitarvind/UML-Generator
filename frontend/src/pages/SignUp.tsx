@@ -10,8 +10,12 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function SignUp() {
+
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
 
@@ -125,6 +129,8 @@ export default function SignUp() {
       const data = await res.json();
       console.log('Sign up successful:', data);
       alert('Sign up successful! Please log in.');
+      navigate('/home');
+
     } catch (error) {
       console.error('Error during sign up:', error);
       if (error instanceof Error) {
@@ -141,7 +147,7 @@ export default function SignUp() {
         <CardHeader>
           <CardTitle>Sign Up</CardTitle>
           <CardAction>
-            <Button variant="link">Login</Button>
+            <Button variant="link" onClick={()=>navigate('/login')}>Login</Button>
           </CardAction>
         </CardHeader>
         <CardContent>
