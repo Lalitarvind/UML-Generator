@@ -23,13 +23,25 @@ An updated version of [Auto-UML](https://github.com/Gryffindor-House/Auto-UML/tr
     cd backend
     ```
 
-2. Activate the virtual environment (PowerShell):
+2. Create and activate the virtual environment (PowerShell):
 
     ```powershell
+    uv venv .venv
     .venv\Scripts\Activate.ps1
     ```
+3. You can use the requirements.txt initially to make the toml and later discard requirements.txt
 
-3. Start the FastAPI server with hot reload:
+    ```powershell
+    uv add -r requirements.txt 
+    ```
+
+4. To further add any other packages just use 
+
+    ```powershell
+    uv add <package>
+    ```
+
+5. Start the FastAPI server with hot reload:
 
     ```powershell
     uvicorn app.main:app --reload
