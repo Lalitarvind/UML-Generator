@@ -4,12 +4,13 @@ An updated version of [Auto-UML](https://github.com/Gryffindor-House/Auto-UML/tr
 
 ---
 
-## 🚀 Tech Stack
+##  Tech Stack
 
-| Backend                          | Frontend                      | Database                 | Tools & Utilities              |
-|---------------------------------|-------------------------------|--------------------------|-------------------------------|
-| ![Python](https://img.shields.io/badge/-Python-3776AB?logo=python&logoColor=white) | ![React](https://img.shields.io/badge/-React-61DAFB?logo=react&logoColor=black) | ![Redis](https://img.shields.io/badge/-Redis-DC382D?logo=redis&logoColor=white) | ![FastAPI](https://img.shields.io/badge/-FastAPI-009688?logo=fastapi&logoColor=white) |
-| ![FastAPI](https://img.shields.io/badge/-FastAPI-009688?logo=fastapi&logoColor=white) | ![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?logo=typescript&logoColor=white) |                          | ![Vite](https://img.shields.io/badge/-Vite-646CFF?logo=vite&logoColor=white) |
+| Backend                                                                 | Frontend                                                                 | Database                                                                 | Tools & Utilities                                                              |
+|-------------------------------------------------------------------------|--------------------------------------------------------------------------|--------------------------------------------------------------------------|--------------------------------------------------------------------------------|
+| ![Python](https://img.shields.io/badge/-Python-3776AB?logo=python&logoColor=white) | ![React](https://img.shields.io/badge/-React-61DAFB?logo=react&logoColor=black) | ![MongoDB](https://img.shields.io/badge/-MongoDB-47A248?logo=mongodb&logoColor=white) | ![FastAPI](https://img.shields.io/badge/-FastAPI-009688?logo=fastapi&logoColor=white) |
+|                                                                         | ![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?logo=typescript&logoColor=white) |                                                                          | ![Vite](https://img.shields.io/badge/-Vite-646CFF?logo=vite&logoColor=white)   |
+
 
 ---
 
@@ -23,13 +24,25 @@ An updated version of [Auto-UML](https://github.com/Gryffindor-House/Auto-UML/tr
     cd backend
     ```
 
-2. Activate the virtual environment (PowerShell):
+2. Create and activate the virtual environment (PowerShell):
 
     ```powershell
+    uv venv .venv
     .venv\Scripts\Activate.ps1
     ```
+3. You can use the requirements.txt initially to make the toml and later discard requirements.txt
 
-3. Start the FastAPI server with hot reload:
+    ```powershell
+    uv add -r requirements.txt 
+    ```
+
+4. To further add any other packages just use 
+
+    ```powershell
+    uv add <package>
+    ```
+
+5. Start the FastAPI server with hot reload:
 
     ```powershell
     uvicorn app.main:app --reload
