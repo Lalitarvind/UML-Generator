@@ -2,6 +2,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Search, Star } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function HomePage() {
   return (
@@ -52,16 +53,22 @@ export default function HomePage() {
             </h2>
         <div className="flex space-x-4">
             {/* New Chat Card */}
+            <Link to="/dashboard/chat" className="w-40">
             <Card className="p-4 flex flex-col items-center bg-white shadow-md rounded-lg hover:shadow-xl transition w-40">
                 <span className="text-4xl">💬</span>
                 <p className="mt-2 font-medium">New Chat</p>
             </Card>
+            </Link>
 
             {/* Playground Card */}
+            <Link to="/dashboard/playground" className="w-40">
             <Card className="p-4 flex flex-col items-center bg-white shadow-md rounded-lg hover:shadow-xl transition w-40">
                 <span className="text-4xl">🛠️</span>
                 <p className="mt-2 font-medium">New Playground</p>
             </Card>
+            </Link>
+
+            
         </div>
         </div>
 
