@@ -1,36 +1,49 @@
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+// import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Search, Star } from 'lucide-react';
+import { Search, Star, Home, Inbox, Calendar } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { AppSidebar } from '@/components/Sidebar';
+import { SidebarProvider } from "@/components/ui/sidebar"
+
+type Item = {
+    title: string;
+    url: string;
+    Icon: React.ElementType;
+};
+
+const navItems:Item[] = [
+{
+    title: "Home",
+    url: "#",
+    Icon: Home,
+  },
+  {
+    title: "Inbox",
+    url: "#",
+    Icon: Inbox,
+  },
+  {
+    title: "Calendar",
+    url: "#",
+    Icon: Calendar,
+  },
+  {
+    title: "Search",
+    url: "#",
+    Icon: Search,
+  },
+]
 
 export default function HomePage() {
   return (
     <div className="flex min-h-screen bg-white text-black">
       {/* Sidebar */}
-      <aside className="w-64 bg-[#3A2990] text-white flex flex-col items-center py-6 space-y-8">
-        <div className="flex items-center space-x-2">
-          <img src="/logo192.png" alt="Logo" className="w-8 h-8" />
-          <h1 className="text-xl font-bold">Auto UML</h1>
-        </div>
-        <nav className="space-y-4 text-left w-full px-6">
-          <a href="#" className="block hover:underline">
-            🏠 Home
-          </a>
-          <a href="#" className="block hover:underline">
-            📄 Documents
-          </a>
-          <a href="#" className="block hover:underline">
-            📃 Templates
-          </a>
-          <a href="#" className="block hover:underline">
-            📄 Integrations
-          </a>
-        </nav>
-      </aside>
+      <SidebarProvider>
+        <AppSidebar items={navItems} />
 
       {/* Main Content */}
-      <main className="flex-1 p-6">
+      <main className="flex-1 p-6 w-full">
         {/* Top Bar */}
         <div className="flex justify-between items-center mb-6">
           <div className="flex items-center w-1/2">
@@ -98,6 +111,8 @@ export default function HomePage() {
           </div>
         </div>
       </main>
+      </SidebarProvider>
+
     </div>
   );
 }
