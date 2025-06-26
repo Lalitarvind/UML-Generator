@@ -10,8 +10,11 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
 
@@ -83,10 +86,6 @@ export default function Login() {
 
   async function onSubmit() {
     console.log(email, password);
-    if (!isValid) {
-      console.error('Form is not valid');
-      return;
-    }
     try {
       const res = await fetch('http://localhost:8000/login', {
         method: 'POST',
@@ -101,6 +100,7 @@ export default function Login() {
       }
       const data = await res.json();
       console.log('Login successful:', data);
+      navigate('/home')
     } catch (error) {
       console.error('Error during login:', error);
       if (error instanceof Error) {
@@ -117,14 +117,14 @@ export default function Login() {
         <CardHeader>
           <CardTitle>Login</CardTitle>
           <CardAction>
-            <Button variant="link">Sign Up</Button>
+            <Button variant="link" onClick={()=>navigate('/signup')}>Sign Up</Button>
           </CardAction>
         </CardHeader>
         <CardContent>
           <form>
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="emailInput">Email</Label>
                 <Input
                   id="emailInput"
                   type="email"
@@ -136,7 +136,7 @@ export default function Login() {
               </div>
               <div className="grid gap-2">
                 <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
+                  <Label htmlFor="passwordInput">Password</Label>
                   <a
                     href="#"
                     className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
@@ -144,7 +144,7 @@ export default function Login() {
                     Forgot your password?
                   </a>
                 </div>
-                <Input id="password" type="password" onChange={handlePasswordChange} required />
+                <Input id="passwordInput" type="password" onChange={handlePasswordChange} required />
                 {passwordError && <span className="error">{passwordError}</span>}
               </div>
             </div>

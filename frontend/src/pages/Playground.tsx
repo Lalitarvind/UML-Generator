@@ -2,8 +2,32 @@
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Pencil, Shapes } from 'lucide-react';
+import { useCallback } from 'react';
+import {
+  ReactFlow,
+  MiniMap,
+  Controls,
+  Background,
+  useNodesState,
+  useEdgesState,
+  addEdge,
+} from '@xyflow/react';
+import '@xyflow/react/dist/style.css';
+
+const initialNodes = [
+  { id: '1', position: { x: 0, y: 0 }, data: { label: '1' } },
+  { id: '2', position: { x: 0, y: 100 }, data: { label: '2' } },
+];
+const initialEdges = [{ id: 'e1-2', source: '1', target: '2' }];
 
 export default function Playground() {
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+ 
+  const onConnect = useCallback(
+    (params) => setEdges((eds) => addEdge(params, eds)),
+    [setEdges],
+  );
   return (
     <div className="flex flex-col min-h-screen bg-white text-black">
       {/* Top Bar */}
@@ -37,10 +61,17 @@ export default function Playground() {
 
         {/* Canvas Area */}
         <section className="flex-1 bg-gray-50 p-6 overflow-auto">
-          <h2 className="text-lg font-semibold mb-4 text-red-500">Your Diagram</h2>
-          <div className="border-2 border-dashed border-gray-300 rounded-lg min-h-[400px] flex items-center justify-center text-gray-400">
-            Canvas Area (coming soon)
-          </div>
+          <ReactFlow
+            nodes={nodes}
+            edges={edges}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            onConnect={onConnect}
+          >
+            <Controls />
+            <MiniMap />
+            <Background variant="dots" gap={12} size={1} />
+          </ReactFlow>
         </section>
       </main>
     </div>
