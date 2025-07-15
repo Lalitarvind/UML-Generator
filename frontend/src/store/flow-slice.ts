@@ -30,6 +30,14 @@ const reactFlowSlice = createSlice({
         },
         onConnect(state, action: PayloadAction<Connection>){
             state.edges = addEdge(action.payload, state.edges);
+        },
+        updateNodeLabel(state, action: PayloadAction<{nodeId:string, label: string}>){
+            state.nodes = state.nodes.map((node)=>{
+                if (node.id===action.payload.nodeId){
+                    node.data = {...node.data, label: action.payload.label};
+                }
+                return node
+            })
         }
     }
 })
