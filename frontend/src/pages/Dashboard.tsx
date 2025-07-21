@@ -3,8 +3,17 @@ import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { Search, Star, Home, Inbox, Calendar } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { AppSidebar } from '@/components/Sidebar';
-import { SidebarProvider } from "@/components/ui/sidebar"
+import { 
+  SidebarProvider,
+  Sidebar,
+  SidebarContent,  
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem
+} from "@/components/ui/sidebar"
 
 type Item = {
     title: string;
@@ -40,7 +49,27 @@ export default function HomePage() {
     <div className="flex min-h-screen bg-white text-black">
       {/* Sidebar */}
       <SidebarProvider>
-        <AppSidebar items={navItems} />
+      <Sidebar>
+        <SidebarContent>
+          <SidebarGroup>
+          <SidebarGroupLabel>Application</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {navItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <a href={item.url}>
+                      <item.Icon size={18}/>
+                      <span>{item.title}</span>
+                    </a>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+        </SidebarContent>
+      </Sidebar>
 
       {/* Main Content */}
       <main className="flex-1 p-6 w-full">

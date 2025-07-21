@@ -6,6 +6,7 @@ import type {
     Node,
     NodeChange,
 } from '@xyflow/react';
+import { nanoid } from "nanoid";
 import {  applyNodeChanges, applyEdgeChanges, addEdge} from '@xyflow/react';
 
 export type RFState = {
@@ -38,6 +39,28 @@ const reactFlowSlice = createSlice({
                 }
                 return node
             })
+        },
+        addNode(state, action: PayloadAction<{nodeType:string, parentId?:string}>){
+            const id = nanoid()
+            let parent_details = {}
+            if (action.payload.parentId){
+                parent_details = {
+                    extent: 'parent',
+                    parentId: action.payload.parentId
+                }
+            }
+            const newNode = {
+                id,
+                ...parent_details,
+                position: {
+                        x: Math.random() * 500,
+                        y: Math.random() * 500,
+                    },
+                data: {
+                    label: `${action.payload.nodeType} ${id}`,
+                },
+            };
+            state.nodes = [...state.nodes,newNode]
         }
     }
 })

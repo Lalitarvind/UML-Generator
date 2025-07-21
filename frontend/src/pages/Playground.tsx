@@ -14,6 +14,9 @@ import ChatbotPanel from '@/components/ChatbotPanel';
 import { useDispatch, useSelector } from 'react-redux';
 import { reactFlowActions, type RFState } from '@/store/flow-slice';
 import ActorNode from '@/components/NodeTypes/ActorNode';
+import SystemBoundaryNode from '@/components/NodeTypes/SystemBoundaryNode';
+import UseCaseNode from '@/components/NodeTypes/UseCaseNode';
+import IncludeExcludeEdge from '@/components/EdgeTypes/IncludeExcludeEdge';
 
 export default function Playground() {
   const nodes = useSelector((state:RFState) => state.nodes)
@@ -21,7 +24,14 @@ export default function Playground() {
   
   const dispatch = useDispatch()
   
-  const nodeTypes = {actorNode: ActorNode}
+  const nodeTypes = {
+    actorNode: ActorNode, 
+    systemBoundaryNode: SystemBoundaryNode, 
+    useCaseNode: UseCaseNode
+  }
+  const edgeTypes = {
+    includeExcludeEdge: IncludeExcludeEdge
+  }
 
   return (
     <div className="flex flex-col min-h-screen bg-white text-black">
@@ -37,6 +47,7 @@ export default function Playground() {
               nodes={nodes}
               edges={edges}
               nodeTypes={nodeTypes}
+              edgeTypes={edgeTypes}
               onNodesChange={(changes)=>dispatch(reactFlowActions.onNodesChange(changes))}
               onEdgesChange={(changes)=>dispatch(reactFlowActions.onEdgesChange(changes))}
               onConnect={(changes)=>dispatch(reactFlowActions.onConnect(changes))}
