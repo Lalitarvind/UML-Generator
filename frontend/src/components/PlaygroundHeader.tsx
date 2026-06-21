@@ -1,4 +1,5 @@
 import { Input } from '@/components/ui/input';
+// import appLogo from '@assets/app_logo.png';
 
 export default function PlaygroundHeader(){
     return (
@@ -6,7 +7,7 @@ export default function PlaygroundHeader(){
             {/* Top Bar */}
             <header className="flex items-center justify-between bg-[#3A2990] p-4 text-white">
                 <div className="flex items-center space-x-3">
-                <img src="/logo192.png" alt="Logo" className="w-8 h-8" />
+                {/* <img src={appLogo} alt="Logo" className="w-8 h-8" /> */}
                 <h1 className="text-xl font-bold">Auto UML</h1>
                 </div>
                 <div className="flex items-center bg-white rounded-md px-2 py-1">

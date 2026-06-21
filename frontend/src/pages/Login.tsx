@@ -11,6 +11,7 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import bgImg from '@assets/uml_gen_bg_img.jpg';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -100,6 +101,7 @@ export default function Login() {
       }
       const data = await res.json();
       console.log('Login successful:', data);
+      localStorage.setItem('auth_token', data.token);
       navigate('/home')
     } catch (error) {
       console.error('Error during login:', error);
@@ -112,7 +114,7 @@ export default function Login() {
   }
 
   return (
-    <div className="bg-[url('@assets/uml_gen_bg_img.jpg')] bg-cover bg-center flex items-center justify-center min-h-screen w-full">
+    <div className="bg-cover bg-center flex items-center justify-center min-h-screen w-full" style={{ backgroundImage: `url(${bgImg})` }}>
       <Card className="w-full max-w-lg max-h-lg">
         <CardHeader>
           <CardTitle>Login</CardTitle>

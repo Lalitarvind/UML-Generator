@@ -11,6 +11,7 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import bgImg from '@assets/uml_gen_bg_img.jpg';
 
 export default function SignUp() {
 
@@ -142,7 +143,7 @@ export default function SignUp() {
   }
 
   return (
-    <div className="bg-[url('@assets/uml_gen_bg_img.jpg')] bg-cover bg-center flex items-center justify-center min-h-screen w-full">
+    <div className="bg-cover bg-center flex items-center justify-center min-h-screen w-full" style={{ backgroundImage: `url(${bgImg})` }}>
       <Card className="w-full max-w-sm">
         <CardHeader>
           <CardTitle>Sign Up</CardTitle>
@@ -189,7 +190,7 @@ export default function SignUp() {
         </CardContent>
         <CardFooter className="flex-col gap-2">
           <Button type="submit" className="w-full" disabled={!isValid} onClick={onSubmit}>
-            Login
+            Sign Up
           </Button>
         </CardFooter>
       </Card>
