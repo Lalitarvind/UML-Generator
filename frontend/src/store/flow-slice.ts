@@ -7,7 +7,7 @@ import type {
     NodeChange,
 } from '@xyflow/react';
 import { nanoid } from "nanoid";
-import {  applyNodeChanges, applyEdgeChanges, addEdge} from '@xyflow/react';
+import { applyNodeChanges, applyEdgeChanges, addEdge } from '@xyflow/react';
 
 export type RFState = {
   nodes: Node[];
@@ -40,7 +40,25 @@ const reactFlowSlice = createSlice({
                 return node
             })
         },
-        addNode(state, action: PayloadAction<{nodeType:string, parentId?:string}>){
+        setNodes(state, action: PayloadAction<Node[]>) {
+            // Cast required: @xyflow/react Node has readonly arrays that conflict with Immer's WritableDraft
+            state.nodes = action.payload as unknown as typeof state.nodes;
+        },
+        setEdges(state, action: PayloadAction<Edge[]>) {
+            state.edges = action.payload as unknown as typeof state.edges;
+        },
+        addEdgeWithType(state, action: PayloadAction<{source:string, target:string, edgeType:string, label?:string}>) {
+            const { source, target, edgeType, label } = action.payload;
+            const newEdge: Edge = {
+                id: nanoid(),
+                source,
+                target,
+                type: edgeType,
+                data: { label: label ?? '' },
+            };
+            state.edges = [...state.edges, newEdge];
+        },
+        addNode(state, action: PayloadAction<{nodeType:string, parentId?:string, position?:{x:number,y:number}, label?:string}>){
             const id = nanoid()
             let parent_details = {}
             if (action.payload.parentId){
@@ -49,15 +67,19 @@ const reactFlowSlice = createSlice({
                     parentId: action.payload.parentId
                 }
             }
+            const defaultStyles: Record<string, { width: number; height: number }> = {
+                actorNode: { width: 80, height: 100 },
+                useCaseNode: { width: 180, height: 80 },
+                systemBoundaryNode: { width: 400, height: 300 },
+            };
             const newNode = {
                 id,
+                type: action.payload.nodeType,
                 ...parent_details,
-                position: {
-                        x: Math.random() * 500,
-                        y: Math.random() * 500,
-                    },
+                position: action.payload.position ?? { x: 250, y: 150 },
+                style: defaultStyles[action.payload.nodeType] ?? {},
                 data: {
-                    label: `${action.payload.nodeType} ${id}`,
+                    label: action.payload.label ?? `${action.payload.nodeType} ${id}`,
                 },
             };
             state.nodes = [...state.nodes,newNode]
