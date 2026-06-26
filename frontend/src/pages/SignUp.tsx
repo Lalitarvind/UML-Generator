@@ -1,20 +1,8 @@
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import bgImg from '@assets/uml_gen_bg_img.jpg';
 
 export default function SignUp() {
-
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
@@ -131,7 +119,6 @@ export default function SignUp() {
       console.log('Sign up successful:', data);
       alert('Sign up successful! Please log in.');
       navigate('/home');
-
     } catch (error) {
       console.error('Error during sign up:', error);
       if (error instanceof Error) {
@@ -139,61 +126,81 @@ export default function SignUp() {
       } else {
         alert('An unexpected error occurred');
       }
-    } 
+    }
   }
 
   return (
-    <div className="bg-cover bg-center flex items-center justify-center min-h-screen w-full" style={{ backgroundImage: `url(${bgImg})` }}>
-      <Card className="w-full max-w-sm">
-        <CardHeader>
-          <CardTitle>Sign Up</CardTitle>
-          <CardAction>
-            <Button variant="link" onClick={()=>navigate('/login')}>Login</Button>
-          </CardAction>
-        </CardHeader>
-        <CardContent>
-          <form>
-            <div className="flex flex-col gap-6">
-              <div className="grid gap-2">
-                <Label htmlFor="emailInput">Email</Label>
-                <Input
-                  id="emailInput"
-                  type="email"
-                  placeholder="m@example.com"
-                  onChange={handleEmailChange}
-                  required
-                />
-                {emailError && <span className="error">{emailError}</span>}
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="passwordInput">Password</Label>
-                <Input
-                  id="passwordInput"
-                  type="password"
-                  onChange={handlePasswordChange}
-                  required
-                />
-                {passwordError && <span className="error">{passwordError}</span>}
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="confirmPasswordInput">Confirm Password</Label>
-                <Input
-                  id="confirmPasswordInput"
-                  type="password"
-                  onChange={handleConfirmPasswordChange}
-                  required
-                />
-                {confirmPasswordError && <span className="error">{confirmPasswordError}</span>}
-              </div>
-            </div>
-          </form>
-        </CardContent>
-        <CardFooter className="flex-col gap-2">
-          <Button type="submit" className="w-full" disabled={!isValid} onClick={onSubmit}>
+    <div
+      className="bg-cover bg-center flex items-center justify-center min-h-screen w-full"
+      style={{ backgroundImage: `url(${bgImg})` }}
+    >
+      <div className="w-full max-w-sm bg-white rounded-xl shadow-lg p-8">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-bold">Sign Up</h2>
+          <button
+            className="text-sm text-[#3A2990] hover:underline"
+            onClick={() => navigate('/login')}
+          >
+            Login
+          </button>
+        </div>
+
+        <form className="flex flex-col gap-6">
+          <div className="grid gap-2">
+            <label htmlFor="emailInput" className="text-sm font-medium text-gray-700">
+              Email
+            </label>
+            <input
+              id="emailInput"
+              type="email"
+              placeholder="m@example.com"
+              onChange={handleEmailChange}
+              required
+              className="px-3 py-2 border border-gray-300 rounded-md text-sm outline-none focus:border-[#3A2990] focus:ring-1 focus:ring-[#3A2990]"
+            />
+            {emailError && <span className="error">{emailError}</span>}
+          </div>
+
+          <div className="grid gap-2">
+            <label htmlFor="passwordInput" className="text-sm font-medium text-gray-700">
+              Password
+            </label>
+            <input
+              id="passwordInput"
+              type="password"
+              onChange={handlePasswordChange}
+              required
+              className="px-3 py-2 border border-gray-300 rounded-md text-sm outline-none focus:border-[#3A2990] focus:ring-1 focus:ring-[#3A2990]"
+            />
+            {passwordError && <span className="error">{passwordError}</span>}
+          </div>
+
+          <div className="grid gap-2">
+            <label htmlFor="confirmPasswordInput" className="text-sm font-medium text-gray-700">
+              Confirm Password
+            </label>
+            <input
+              id="confirmPasswordInput"
+              type="password"
+              onChange={handleConfirmPasswordChange}
+              required
+              className="px-3 py-2 border border-gray-300 rounded-md text-sm outline-none focus:border-[#3A2990] focus:ring-1 focus:ring-[#3A2990]"
+            />
+            {confirmPasswordError && <span className="error">{confirmPasswordError}</span>}
+          </div>
+        </form>
+
+        <div className="mt-6 flex flex-col gap-2">
+          <button
+            type="submit"
+            className="w-full py-2 px-4 bg-[#3A2990] text-white font-semibold rounded-md hover:bg-[#2e2070] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            disabled={!isValid}
+            onClick={onSubmit}
+          >
             Sign Up
-          </Button>
-        </CardFooter>
-      </Card>
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

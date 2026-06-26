@@ -1,4 +1,3 @@
-import { Label } from '@radix-ui/react-label';
 import {
     EdgeLabelRenderer,
     BaseEdge,
@@ -31,15 +30,16 @@ export default function IncludeExcludeEdge({
                 style={{ strokeDasharray: '2 5' }}
             />
             <EdgeLabelRenderer>
-                <Label
+                <label
                     htmlFor={id}
                     style={{
                         position: 'absolute',
                         transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`,
                         pointerEvents: 'all',
+                        fontSize: '12px',
                     }}
                     className="nodrag nopan"
-                >{data?.label}</Label>
+                >{data?.label}</label>
             </EdgeLabelRenderer>
         </>
     )

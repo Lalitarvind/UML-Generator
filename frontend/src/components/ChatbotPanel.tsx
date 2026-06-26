@@ -1,7 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
 import { Bot, User, Send } from 'lucide-react';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { chatActions } from '@/store/chat-slice';
 import { useDiagramMutations, type DiagramMutation } from '@/hooks/useDiagramMutations';
@@ -107,8 +105,8 @@ export default function ChatbotPanel() {
   }
 
   return (
-    <aside className="w-[400px] border-l bg-white flex flex-col">
-      <div className="text-lg font-semibold text-purple-700 p-4 pb-2 border-b text-center">
+    <aside className="w-[400px] border-l border-gray-200 bg-white flex flex-col">
+      <div className="text-lg font-semibold text-purple-700 p-4 pb-2 border-b border-gray-200 text-center">
         UML Assistant
       </div>
 
@@ -127,18 +125,22 @@ export default function ChatbotPanel() {
         <div ref={messagesEndRef} />
       </div>
 
-      <div className="flex items-center gap-2 border-t p-3">
-        <Input
-          className="flex-1"
+      <div className="flex items-center gap-2 border-t border-gray-200 p-3">
+        <input
+          className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-md outline-none focus:border-[#3A2990] focus:ring-1 focus:ring-[#3A2990] disabled:opacity-50 disabled:cursor-not-allowed"
           placeholder="Ask your question..."
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleKeyDown}
           disabled={isLoading}
         />
-        <Button size="icon" onClick={handleSend} disabled={isLoading || !inputValue.trim()}>
+        <button
+          className="p-2 bg-[#3A2990] text-white rounded-md hover:bg-[#2e2070] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          onClick={handleSend}
+          disabled={isLoading || !inputValue.trim()}
+        >
           <Send size={16} />
-        </Button>
+        </button>
       </div>
     </aside>
   );

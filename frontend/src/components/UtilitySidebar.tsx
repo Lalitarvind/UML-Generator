@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import { useAppSelector } from '@/store/hooks';
 import { reactFlowActions } from '@/store/flow-slice';
 import UtilitySidebarButton from './UtilitySidebarButton';
-import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupLabel, SidebarGroupContent } from './ui/sidebar';
 
 const NODE_TYPES = [
   { nodeType: 'actorNode', label: 'Actor', Icon: User },
@@ -86,47 +85,46 @@ export default function UtilitySidebar() {
   }
 
   return (
-    <Sidebar collapsible="none">
-      <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel>Nodes</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <div className="grid grid-cols-3 gap-2 p-2">
-              {NODE_TYPES.map(({ nodeType, label, Icon }) => (
-                <UtilitySidebarButton
-                  key={nodeType}
-                  Icon={Icon}
-                  label={label}
-                  nodeType={nodeType}
-                  onClick={handleAddNode}
-                />
-              ))}
-            </div>
-          </SidebarGroupContent>
-        </SidebarGroup>
-        <SidebarGroup>
-          <SidebarGroupLabel>Edges</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <div className="grid grid-cols-2 gap-2 p-2">
-              {EDGE_TYPES.map(({ edgeType, label, preview }) => (
-                <button
-                  key={edgeType}
-                  onClick={() => dispatch(reactFlowActions.setActiveEdgeType(edgeType))}
-                  className={`flex flex-col items-center gap-1 p-2 rounded-md border-2 transition-colors ${
-                    activeEdgeType === edgeType
-                      ? 'border-primary bg-primary/10 text-primary'
-                      : 'border-transparent hover:bg-accent text-muted-foreground hover:text-foreground'
-                  }`}
-                  title={label}
-                >
-                  {preview}
-                  <span className="text-xs leading-tight text-center">{label}</span>
-                </button>
-              ))}
-            </div>
-          </SidebarGroupContent>
-        </SidebarGroup>
-      </SidebarContent>
-    </Sidebar>
+    <aside className="w-64 shrink-0 border-r border-gray-200 bg-white flex flex-col overflow-y-auto">
+      <div className="p-3">
+        <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide px-1 mb-2">
+          Nodes
+        </p>
+        <div className="grid grid-cols-3 gap-2 p-1">
+          {NODE_TYPES.map(({ nodeType, label, Icon }) => (
+            <UtilitySidebarButton
+              key={nodeType}
+              Icon={Icon}
+              label={label}
+              nodeType={nodeType}
+              onClick={handleAddNode}
+            />
+          ))}
+        </div>
+      </div>
+
+      <div className="p-3">
+        <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide px-1 mb-2">
+          Edges
+        </p>
+        <div className="grid grid-cols-2 gap-2 p-1">
+          {EDGE_TYPES.map(({ edgeType, label, preview }) => (
+            <button
+              key={edgeType}
+              onClick={() => dispatch(reactFlowActions.setActiveEdgeType(edgeType))}
+              className={`flex flex-col items-center gap-1 p-2 rounded-md border-2 transition-colors ${
+                activeEdgeType === edgeType
+                  ? 'border-[#3A2990] bg-[#3A2990]/10 text-[#3A2990]'
+                  : 'border-transparent hover:bg-gray-100 text-gray-500 hover:text-gray-900'
+              }`}
+              title={label}
+            >
+              {preview}
+              <span className="text-xs leading-tight text-center">{label}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+    </aside>
   );
 }

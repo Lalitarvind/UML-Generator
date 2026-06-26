@@ -1,5 +1,5 @@
 // src/pages/Playground.tsx
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import type React from 'react';
 import {
   ReactFlow,
@@ -12,6 +12,7 @@ import {
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import PlaygroundHeader from '@/components/PlaygroundHeader';
+import { Pencil, Bot } from 'lucide-react';
 import UtilitySidebar from '@/components/UtilitySidebar';
 import ChatbotPanel from '@/components/ChatbotPanel';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
@@ -20,8 +21,7 @@ import ActorNode from '@/components/NodeTypes/ActorNode';
 import SystemBoundaryNode from '@/components/NodeTypes/SystemBoundaryNode';
 import UseCaseNode from '@/components/NodeTypes/UseCaseNode';
 import IncludeExcludeEdge from '@/components/EdgeTypes/IncludeExcludeEdge';
-import { SidebarProvider } from '@/components/ui/sidebar';
-
+import { SolidLineEdge, SolidArrowEdge, DashedLineEdge, DashedArrowEdge } from '@/components/EdgeTypes/BasicEdges';
 const nodeTypes = {
   actorNode: ActorNode,
   systemBoundaryNode: SystemBoundaryNode,
@@ -30,6 +30,10 @@ const nodeTypes = {
 
 const edgeTypes = {
   includeExcludeEdge: IncludeExcludeEdge,
+  solidLineEdge: SolidLineEdge,
+  solidArrowEdge: SolidArrowEdge,
+  dashedLineEdge: DashedLineEdge,
+  dashedArrowEdge: DashedArrowEdge,
 };
 
 // Inner component so useReactFlow() is inside ReactFlowProvider
@@ -80,23 +84,43 @@ function FlowCanvas() {
 }
 
 export default function Playground() {
+  const [activePanel, setActivePanel] = useState<'edit' | 'ai'>('edit');
+
   return (
-    <div className="flex flex-col min-h-screen bg-white text-black">
+    <div className="flex flex-col h-screen bg-white text-black">
       <PlaygroundHeader />
-      <SidebarProvider
-        style={{
-          '--sidebar-width': '20rem',
-          '--sidebar-width-mobile': '20rem',
-        } as React.CSSProperties}
-      >
-        <ReactFlowProvider>
-          <main className="flex flex-1">
-            <UtilitySidebar />
-            <FlowCanvas />
-            <ChatbotPanel />
-          </main>
-        </ReactFlowProvider>
-      </SidebarProvider>
+      <ReactFlowProvider>
+        <main className="flex flex-1 overflow-hidden relative">
+          {activePanel === 'edit' && <UtilitySidebar />}
+          <FlowCanvas />
+          {activePanel === 'ai' && <ChatbotPanel />}
+
+          <div className="absolute top-4 right-4 z-10 flex items-center bg-white rounded-full shadow-lg border border-gray-200 p-1 gap-0.5">
+            <button
+              onClick={() => setActivePanel('edit')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                activePanel === 'edit'
+                  ? 'bg-[#3A2990] text-white'
+                  : 'text-gray-500 hover:text-gray-800'
+              }`}
+            >
+              <Pencil size={13} />
+              Edit
+            </button>
+            <button
+              onClick={() => setActivePanel('ai')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                activePanel === 'ai'
+                  ? 'bg-[#3A2990] text-white'
+                  : 'text-gray-500 hover:text-gray-800'
+              }`}
+            >
+              <Bot size={13} />
+              AI
+            </button>
+          </div>
+        </main>
+      </ReactFlowProvider>
     </div>
   );
 }
