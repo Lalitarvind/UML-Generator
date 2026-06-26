@@ -7,16 +7,18 @@ import type {
     NodeChange,
 } from '@xyflow/react';
 import { nanoid } from "nanoid";
-import { applyNodeChanges, applyEdgeChanges, addEdge } from '@xyflow/react';
+import { applyNodeChanges, applyEdgeChanges, addEdge, MarkerType } from '@xyflow/react';
 
 export type RFState = {
   nodes: Node[];
   edges: Edge[];
+  activeEdgeType: string;
 };
 
 const initialState: RFState = {
     nodes : [],
-    edges : []
+    edges : [],
+    activeEdgeType: 'solidArrowEdge',
 }
 
 const reactFlowSlice = createSlice({
@@ -30,7 +32,20 @@ const reactFlowSlice = createSlice({
             state.edges = applyEdgeChanges(action.payload, state.edges);
         },
         onConnect(state, action: PayloadAction<Connection>){
-            state.edges = addEdge(action.payload, state.edges);
+            const edgeType = state.activeEdgeType;
+            const markerEnd =
+                edgeType === 'solidArrowEdge' || edgeType === 'dashedArrowEdge'
+                    ? { type: MarkerType.ArrowClosed }
+                    : edgeType === 'includeExcludeEdge'
+                    ? { type: MarkerType.Arrow }
+                    : undefined;
+            state.edges = addEdge(
+                { ...action.payload, type: edgeType, ...(markerEnd && { markerEnd }) },
+                state.edges,
+            );
+        },
+        setActiveEdgeType(state, action: PayloadAction<string>) {
+            state.activeEdgeType = action.payload;
         },
         updateNodeLabel(state, action: PayloadAction<{nodeId:string, label: string}>){
             state.nodes = state.nodes.map((node)=>{
@@ -49,12 +64,19 @@ const reactFlowSlice = createSlice({
         },
         addEdgeWithType(state, action: PayloadAction<{source:string, target:string, edgeType:string, label?:string}>) {
             const { source, target, edgeType, label } = action.payload;
+            const markerEnd =
+                edgeType === 'solidArrowEdge' || edgeType === 'dashedArrowEdge'
+                    ? { type: MarkerType.ArrowClosed }
+                    : edgeType === 'includeExcludeEdge'
+                    ? { type: MarkerType.Arrow }
+                    : undefined;
             const newEdge: Edge = {
                 id: nanoid(),
                 source,
                 target,
                 type: edgeType,
                 data: { label: label ?? '' },
+                ...(markerEnd && { markerEnd }),
             };
             state.edges = [...state.edges, newEdge];
         },
