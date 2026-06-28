@@ -93,6 +93,7 @@ const reactFlowSlice = createSlice({
                 actorNode: { width: 80, height: 100 },
                 useCaseNode: { width: 180, height: 80 },
                 systemBoundaryNode: { width: 400, height: 300 },
+                textNode: { width: 160, height: 80 },
             };
             const newNode = {
                 id,

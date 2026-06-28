@@ -20,9 +20,16 @@ import { reactFlowActions } from '@/store/flow-slice';
 import ActorNode from '@/components/NodeTypes/ActorNode';
 import SystemBoundaryNode from '@/components/NodeTypes/SystemBoundaryNode';
 import UseCaseNode from '@/components/NodeTypes/UseCaseNode';
+import TextNode from '@/components/NodeTypes/TextNode';
 import IncludeExcludeEdge from '@/components/EdgeTypes/IncludeExcludeEdge';
-import { SolidLineEdge, SolidArrowEdge, DashedLineEdge, DashedArrowEdge } from '@/components/EdgeTypes/BasicEdges';
+import {
+  SolidLineEdge,
+  SolidArrowEdge,
+  DashedLineEdge,
+  DashedArrowEdge,
+} from '@/components/EdgeTypes/BasicEdges';
 const nodeTypes = {
+  textNode: TextNode,
   actorNode: ActorNode,
   systemBoundaryNode: SystemBoundaryNode,
   useCaseNode: UseCaseNode,
@@ -60,11 +67,7 @@ function FlowCanvas() {
   );
 
   return (
-    <section
-      className="flex-1 bg-gray-50 overflow-hidden"
-      onDrop={onDrop}
-      onDragOver={onDragOver}
-    >
+    <section className="flex-1 bg-gray-50 overflow-hidden" onDrop={onDrop} onDragOver={onDragOver}>
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -95,7 +98,7 @@ export default function Playground() {
           <FlowCanvas />
           {activePanel === 'ai' && <ChatbotPanel />}
 
-          <div className="absolute top-4 right-4 z-10 flex items-center bg-white rounded-full shadow-lg border border-gray-200 p-1 gap-0.5">
+          <div className="absolute top-4 left-1/2 -translate-x-1/2 z-10 flex items-center bg-white rounded-full shadow-lg border border-gray-200 p-1 gap-0.5">
             <button
               onClick={() => setActivePanel('edit')}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${

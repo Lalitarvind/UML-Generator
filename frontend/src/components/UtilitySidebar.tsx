@@ -1,10 +1,11 @@
-import { User, Circle, Square } from 'lucide-react';
+import { User, Circle, Square, Type } from 'lucide-react';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '@/store/hooks';
 import { reactFlowActions } from '@/store/flow-slice';
 import UtilitySidebarButton from './UtilitySidebarButton';
 
 const NODE_TYPES = [
+  { nodeType: 'textNode', label: 'Text', Icon: Type },
   { nodeType: 'actorNode', label: 'Actor', Icon: User },
   { nodeType: 'useCaseNode', label: 'Use Case', Icon: Circle },
   { nodeType: 'systemBoundaryNode', label: 'System', Icon: Square },
@@ -26,11 +27,26 @@ const EDGE_TYPES = [
     preview: (
       <svg width="48" height="24" viewBox="0 0 48 24">
         <defs>
-          <marker id="prev-solid-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+          <marker
+            id="prev-solid-arrow"
+            markerWidth="8"
+            markerHeight="6"
+            refX="7"
+            refY="3"
+            orient="auto"
+          >
             <polygon points="0 0, 8 3, 0 6" fill="currentColor" />
           </marker>
         </defs>
-        <line x1="4" y1="12" x2="36" y2="12" stroke="currentColor" strokeWidth="1.5" markerEnd="url(#prev-solid-arrow)" />
+        <line
+          x1="4"
+          y1="12"
+          x2="36"
+          y2="12"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          markerEnd="url(#prev-solid-arrow)"
+        />
       </svg>
     ),
   },
@@ -39,7 +55,15 @@ const EDGE_TYPES = [
     label: 'Dashed',
     preview: (
       <svg width="48" height="24" viewBox="0 0 48 24">
-        <line x1="4" y1="12" x2="44" y2="12" stroke="currentColor" strokeWidth="1.5" strokeDasharray="6 4" />
+        <line
+          x1="4"
+          y1="12"
+          x2="44"
+          y2="12"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeDasharray="6 4"
+        />
       </svg>
     ),
   },
@@ -49,11 +73,27 @@ const EDGE_TYPES = [
     preview: (
       <svg width="48" height="24" viewBox="0 0 48 24">
         <defs>
-          <marker id="prev-dashed-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+          <marker
+            id="prev-dashed-arrow"
+            markerWidth="8"
+            markerHeight="6"
+            refX="7"
+            refY="3"
+            orient="auto"
+          >
             <polygon points="0 0, 8 3, 0 6" fill="currentColor" />
           </marker>
         </defs>
-        <line x1="4" y1="12" x2="36" y2="12" stroke="currentColor" strokeWidth="1.5" strokeDasharray="6 4" markerEnd="url(#prev-dashed-arrow)" />
+        <line
+          x1="4"
+          y1="12"
+          x2="36"
+          y2="12"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeDasharray="6 4"
+          markerEnd="url(#prev-dashed-arrow)"
+        />
       </svg>
     ),
   },
@@ -63,12 +103,35 @@ const EDGE_TYPES = [
     preview: (
       <svg width="48" height="24" viewBox="0 0 48 24">
         <defs>
-          <marker id="prev-include-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+          <marker
+            id="prev-include-arrow"
+            markerWidth="8"
+            markerHeight="6"
+            refX="7"
+            refY="3"
+            orient="auto"
+          >
             <polyline points="0 0, 8 3, 0 6" fill="none" stroke="currentColor" strokeWidth="1" />
           </marker>
         </defs>
-        <line x1="4" y1="9" x2="36" y2="9" stroke="currentColor" strokeWidth="1.5" strokeDasharray="2 4" markerEnd="url(#prev-include-arrow)" />
-        <text x="24" y="22" textAnchor="middle" fontSize="6" fill="currentColor" fontFamily="sans-serif">
+        <line
+          x1="4"
+          y1="9"
+          x2="36"
+          y2="9"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeDasharray="2 4"
+          markerEnd="url(#prev-include-arrow)"
+        />
+        <text
+          x="24"
+          y="22"
+          textAnchor="middle"
+          fontSize="6"
+          fill="currentColor"
+          fontFamily="sans-serif"
+        >
           {'<<label>>'}
         </text>
       </svg>
